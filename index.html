@@ -8,21 +8,23 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <h1 class="page-title">Tic Tac Toe</h1>
+    <header class="page-header">
+      <h1 class="page-title">Tic Tac Toe</h1>
+    </header>
     <div class="content-container">
       <div class="input-container">
         <div class="player-container">
           <label class="input-label" for="player-one-name">Player 1</label>
-          <input id="player-one-name" type="text" class="player-name" />
+          <input id="player-one-name" type="text" class="player-input" />
         </div>
         <div class="player-container">
           <label class="input-label" for="player-two-name">Player 2</label>
-          <input id="player-two-name" type="text" class="player-name" />
+          <input id="player-two-name" type="text" class="player-input" />
         </div>
       </div>
       <button class="start-button button">Start</button>
       <div class="gameboard-container"></div>
-      <!-- <button class="restart-button button hidden">Restart</button> -->
+      <button class="restart-button button hidden">Restart</button>
     </div>
   </body>
 </html>

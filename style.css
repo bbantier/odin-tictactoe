@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&family=Vibur&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Barrio&family=Vibur&display=swap');
 
 *,
 *::before,
@@ -9,18 +9,18 @@
 }
 
 :root {
-  --main-bg-color: #ffc300;
+  --main-bg-color: #ffd95f;
   --main-font-color: #454655;
   --main-accent-color: #855df9;
   --secondary-accent-color: #6c5df9;
-  --page-title-font: "Henny Penny", sans-serif;
+  --page-title-font: "Barrio", sans-serif;
   --page-content-font: "Vibur", sans-serif;
 }
 
 body {
+  padding: 5px;
   width: 100vw;
   height: 100vh;
-  padding: 50px;
   background-color: var(--main-bg-color);
 }
 
@@ -28,14 +28,24 @@ body * {
   font-family: var(--main-font-color);
 }
 
+.page-header {
+  padding: 15px;
+  background-color: var(--main-accent-color);
+  color: var(--main-bg-color);
+  border-radius: 15px;
+}
+
 .page-title {
   font-family: var(--page-title-font);
   font-size: 3rem;
+  font-weight: bold;
   text-align: center;
 }
 
 .content-container {
   margin-top: 50px;
+  padding-bottom: 50px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,15 +70,17 @@ body * {
   margin-bottom: 5px;
 }
 
-.player-name {
+.player-input {
   width: 250px;
-  padding: 10px;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.4rem;
   border: 2px solid var(--main-accent-color);
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .button {
-  flex: 0 0 0%;
   padding: 5px 25px;
   font-size: 1.4rem;
   width: 140px;
@@ -76,4 +88,27 @@ body * {
   color: var(--main-bg-color);
   border: 3px groove var(--secondary-accent-color);
   border-radius: 15px;
+  cursor: pointer;
+}
+
+.gameboard-container {
+  margin-top: 50px;
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gameboard-cell {
+  border: 1px solid #dfdfdf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2rem;
+}
+
+.hidden {
+  display: none;
 }

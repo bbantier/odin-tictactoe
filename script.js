@@ -1,5 +1,5 @@
 const Gameboard = (() => {
-  const board = Array(9).fill("");
+  const board = Array(9).fill("X");
   const getBoard = () => board;
   const placeMarker = (index, marker) => (board[index] = marker);
   const resetBoard = () => board.fill("");
@@ -87,13 +87,17 @@ const DisplayController = (() => {
   const startButton = document.querySelector(".start-button");
 
   startButton.addEventListener("click", () => {
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
     const board = Gameboard.getBoard();
 
-    board.forEach((_cell, index) => {
+    board.forEach((cell, index) => {
       const cellDiv = document.createElement("div");
-      cellDiv.classList.add("gameboard-cell");
+      cellDiv.classList.add("gameboard-cell hidden");
       cellDiv.setAttribute("id", `cell-${index}`)
+      cellDiv.textContent = cell;
       boardDiv.appendChild(cellDiv);
     });
-  });
+  })
 })();
