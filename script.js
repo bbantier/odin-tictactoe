@@ -13,14 +13,13 @@ const Player = (name, marker) => {
 
 const Game = (() => {
   let playerOne, playerTwo, currentPlayer;
-  let gameOver = false;
 
   const startGame = () => {
-    playerOne = Player("Player 1", "x");
+    currentPlayer = playerOne = Player("Player 1", "x");
     playerTwo = Player("Player 2", "o");
-    currentPlayer = playerOne;
+
     Gameboard.resetBoard();
-    gameOver = false;
+
     playTurn();
   };
 
@@ -29,7 +28,6 @@ const Game = (() => {
 
   const playTurn = (index) => {
     index = prompt() - 1;
-    if (gameOver) return;
 
     if (Gameboard.getBoard()[index] === "") {
       Gameboard.placeMarker(index, currentPlayer.marker);
@@ -39,10 +37,13 @@ const Game = (() => {
       return;
     }
 
-    const result = checkWin();
-    console.log(result);
-    if (result) {
+    const isWin = checkWin();
+    const isTie = checkTie();
+    if (isWin) {
       console.log(currentPlayer.name + " wins!");
+      return;
+    } else if (isTie) {
+      console.log("It's a tie!");
       return;
     } else {
       switchPlayer();
@@ -52,6 +53,7 @@ const Game = (() => {
 
   const checkWin = () => {
     const board = Gameboard.getBoard();
+
     const winCombos = [
       [0, 1, 2],
       [3, 4, 5],
@@ -64,20 +66,18 @@ const Game = (() => {
     ];
 
     const winTests = [];
+
     winCombos.forEach((combo) => {
       const [a, b, c] = combo;
-      if (board[a] && board[b] === board[a] && board[c] === board[a]) {
-        winTests.push(true);
-      } else {
-        winTests.push(false);
-      }
+      winTests.push(board[a] && board[b] === board[a] && board[c] === board[a]);
     });
 
-    if (winTests.includes(true)) {
-      return true;
-    } else {
-      return false;
-    }
+    return winTests.includes(true);
   };
+
+  const checkTie = () => {
+    return !Gameboard.getBoard().includes("");
+  };
+
   return { startGame };
 })();
