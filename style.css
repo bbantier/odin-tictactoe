@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Henny+Penny&family=Vibur&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-color: #FFC300;
+  --main-font-color: #454655;
+  --main-accent-color: #855df9;
+  --page-title-font: 'Henny Penny', sans-serif;
+  --page-content-font: 'Vibur', sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 50px;
+  background-color: var(--main-bg-color);
+}
+
+body * {
+  font-family: var(--main-font-color);
+}
+
+.page-title {
+  font-family: var(--page-title-font);
+  font-size: 3rem;
+  text-align: center;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-container * {
+  font-family: var(--page-content-font);
+}
+
+.input-container {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.input-label {
+  display: block;
+}
+
+.button {
+  flex: 0 0 0%;
+  padding: 5px 25px;
+  font-size: 1.4rem;
+  width: 100px;
+  background-color: var(--main-accent-color);
+  color: var(--main-bg-color);
+  border: 3px groove #6c5df9;
+  border-radius: 15px;
+}
