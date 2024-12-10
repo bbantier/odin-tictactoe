@@ -1,5 +1,5 @@
 const Gameboard = (() => {
-  const board = Array(9).fill("X");
+  const board = Array(9).fill("");
   const getBoard = () => board;
   const placeMarker = (index, marker) => (board[index] = marker);
   const resetBoard = () => board.fill("");
@@ -15,26 +15,29 @@ const Game = (() => {
   let playerOne, playerTwo, currentPlayer;
 
   const startGame = () => {
-    currentPlayer = playerOne = Player("Player 1", "x");
-    playerTwo = Player("Player 2", "o");
+    const playerOneInput =
+      document.querySelector("#player-one-name").value;
+    const playerTwoInput =
+      document.querySelector("#player-two-name").value;
+    currentPlayer = playerOne = Player(playerOneInput || "Player 1", "x");
+    playerTwo = Player(playerTwoInput || "Player 2", "o");
 
     Gameboard.resetBoard();
 
-    playTurn();
+    // playTurn();
+  };
+
+  const getCurrentPlayer = () => {
+    return currentPlayer;
   };
 
   const switchPlayer = () =>
     (currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne);
 
   const playTurn = (index) => {
-    index = prompt() - 1;
-
     if (Gameboard.getBoard()[index] === "") {
       Gameboard.placeMarker(index, currentPlayer.marker);
       console.log(Gameboard.getBoard());
-    } else {
-      console.log("This cell's already been claimed!");
-      return;
     }
 
     const isWin = checkWin();
@@ -47,7 +50,6 @@ const Game = (() => {
       return;
     } else {
       switchPlayer();
-      playTurn();
     }
   };
 
@@ -79,25 +81,44 @@ const Game = (() => {
     return !Gameboard.getBoard().includes("");
   };
 
-  return { startGame, playTurn };
+  return { startGame, playTurn, getCurrentPlayer };
 })();
 
 const DisplayController = (() => {
   const boardDiv = document.querySelector(".gameboard-container");
   const startButton = document.querySelector(".start-button");
+  const infoMessage = document.querySelector(".info-message");
 
   startButton.addEventListener("click", () => {
+    Game.startGame();
+    infoMessage.textContent = `It's ${Game.getCurrentPlayer().name}'s turn!`;
   });
 
   document.addEventListener("DOMContentLoaded", () => {
     const board = Gameboard.getBoard();
 
-    board.forEach((cell, index) => {
+    const createGameboardCell = (cell, index) => {
       const cellDiv = document.createElement("div");
-      cellDiv.classList.add("gameboard-cell hidden");
-      cellDiv.setAttribute("id", `cell-${index}`)
+
+      cellDiv.classList.add("gameboard-cell");
+      cellDiv.setAttribute("id", `$cell-${index}`);
       cellDiv.textContent = cell;
+
+      cellDiv.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        e.target.textContent = Game.getCurrentPlayer().marker;
+        Game.playTurn(e.target.id.slice(-1));
+      })
+
+      return cellDiv;
+    }
+
+    board.forEach((cell, index) => {
+      const cellDiv = createGameboardCell(cell, index);
       boardDiv.appendChild(cellDiv);
     });
-  })
+
+  });
 })();

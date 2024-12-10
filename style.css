@@ -97,7 +97,8 @@ body * {
   height: 400px;
   background-color: white;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, calc(400px / 3));
+  grid-template-rows: repeat(3, calc(400px / 3));
 }
 
 .gameboard-cell {
@@ -107,6 +108,12 @@ body * {
   align-items: center;
   font-family: 'Courier New', Courier, monospace;
   font-size: 2rem;
+}
+
+.info-message {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: var(--main-font-color);
 }
 
 .hidden {
