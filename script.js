@@ -79,5 +79,21 @@ const Game = (() => {
     return !Gameboard.getBoard().includes("");
   };
 
-  return { startGame };
+  return { startGame, playTurn };
+})();
+
+const DisplayController = (() => {
+  const boardDiv = document.querySelector(".gameboard-container");
+  const startButton = document.querySelector(".start-button");
+
+  startButton.addEventListener("click", () => {
+    const board = Gameboard.getBoard();
+
+    board.forEach((_cell, index) => {
+      const cellDiv = document.createElement("div");
+      cellDiv.classList.add("gameboard-cell");
+      cellDiv.setAttribute("id", `cell-${index}`)
+      boardDiv.appendChild(cellDiv);
+    });
+  });
 })();

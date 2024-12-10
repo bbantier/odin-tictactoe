@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Henny+Penny&family=Vibur&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&family=Vibur&display=swap");
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-  --main-bg-color: #FFC300;
+  --main-bg-color: #ffc300;
   --main-font-color: #454655;
   --main-accent-color: #855df9;
-  --page-title-font: 'Henny Penny', sans-serif;
-  --page-content-font: 'Vibur', sans-serif;
+  --secondary-accent-color: #6c5df9;
+  --page-title-font: "Henny Penny", sans-serif;
+  --page-content-font: "Vibur", sans-serif;
 }
 
 body {
@@ -32,6 +35,7 @@ body * {
 }
 
 .content-container {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,23 +46,34 @@ body * {
 }
 
 .input-container {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .input-label {
   display: block;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--secondary-accent-color);
+  margin-bottom: 5px;
+}
+
+.player-name {
+  width: 250px;
+  padding: 10px;
+  border: 2px solid var(--main-accent-color);
+  border-radius: 5px;
 }
 
 .button {
   flex: 0 0 0%;
   padding: 5px 25px;
   font-size: 1.4rem;
-  width: 100px;
+  width: 140px;
   background-color: var(--main-accent-color);
   color: var(--main-bg-color);
-  border: 3px groove #6c5df9;
+  border: 3px groove var(--secondary-accent-color);
   border-radius: 15px;
 }
