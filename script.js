@@ -15,16 +15,12 @@ const Game = (() => {
   let playerOne, playerTwo, currentPlayer;
 
   const startGame = () => {
-    const playerOneInput =
-      document.querySelector("#player-one-name").value;
-    const playerTwoInput =
-      document.querySelector("#player-two-name").value;
+    const playerOneInput = document.querySelector("#player-one-name").value;
+    const playerTwoInput = document.querySelector("#player-two-name").value;
     currentPlayer = playerOne = Player(playerOneInput || "Player 1", "x");
     playerTwo = Player(playerTwoInput || "Player 2", "o");
 
     Gameboard.resetBoard();
-
-    // playTurn();
   };
 
   const getCurrentPlayer = () => {
@@ -37,19 +33,19 @@ const Game = (() => {
   const playTurn = (index) => {
     if (Gameboard.getBoard()[index] === "") {
       Gameboard.placeMarker(index, currentPlayer.marker);
-      console.log(Gameboard.getBoard());
     }
 
     const isWin = checkWin();
     const isTie = checkTie();
     if (isWin) {
-      console.log(currentPlayer.name + " wins!");
+      DisplayController.updateMessage(`${currentPlayer.name} wins!`)
       return;
     } else if (isTie) {
-      console.log("It's a tie!");
+      DisplayController.updateMessage("It's a tie!")
       return;
     } else {
       switchPlayer();
+      DisplayController.updateMessage(`It's ${currentPlayer.name}'s turn!`)
     }
   };
 
@@ -86,12 +82,16 @@ const Game = (() => {
 
 const DisplayController = (() => {
   const boardDiv = document.querySelector(".gameboard-container");
+  const inputDiv = document.querySelector(".input-container");
   const startButton = document.querySelector(".start-button");
   const infoMessage = document.querySelector(".info-message");
 
-  startButton.addEventListener("click", () => {
+  startButton.addEventListener("click", (e) => {
     Game.startGame();
-    infoMessage.textContent = `It's ${Game.getCurrentPlayer().name}'s turn!`;
+    boardDiv.classList.remove("hidden");
+    inputDiv.classList.add("hidden");
+    e.target.classList.add("hidden");
+    updateMessage(`It's ${Game.getCurrentPlayer().name}'s turn!`);
   });
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -108,17 +108,26 @@ const DisplayController = (() => {
         e.stopPropagation();
         e.stopImmediatePropagation();
 
-        e.target.textContent = Game.getCurrentPlayer().marker;
+        if (e.target.textContent === "") {
+          e.target.textContent = Game.getCurrentPlayer().marker;
+        } else {
+          return;
+        }
         Game.playTurn(e.target.id.slice(-1));
-      })
+      });
 
       return cellDiv;
-    }
+    };
 
     board.forEach((cell, index) => {
       const cellDiv = createGameboardCell(cell, index);
       boardDiv.appendChild(cellDiv);
     });
-
   });
+
+  const updateMessage = (message) => {
+    infoMessage.textContent = message;
+  }
+
+  return { updateMessage };
 })();
