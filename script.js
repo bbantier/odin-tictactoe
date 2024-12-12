@@ -39,9 +39,11 @@ const Game = (() => {
     const isTie = checkTie();
     if (isWin) {
       DisplayController.updateMessage(`${currentPlayer.name} wins!`)
+      DisplayController.gameOver();
       return;
     } else if (isTie) {
       DisplayController.updateMessage("It's a tie!")
+      DisplayController.gameOver();
       return;
     } else {
       switchPlayer();
@@ -84,18 +86,30 @@ const DisplayController = (() => {
   const boardDiv = document.querySelector(".gameboard-container");
   const inputDiv = document.querySelector(".input-container");
   const startButton = document.querySelector(".start-button");
+  const restartButton = document.querySelector(".restart-button");
   const infoMessage = document.querySelector(".info-message");
 
   startButton.addEventListener("click", (e) => {
     Game.startGame();
+    initBoard();
     boardDiv.classList.remove("hidden");
     inputDiv.classList.add("hidden");
     e.target.classList.add("hidden");
     updateMessage(`It's ${Game.getCurrentPlayer().name}'s turn!`);
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
+  restartButton.addEventListener("click", (e) => {
+    inputDiv.classList.remove("hidden");
+    startButton.classList.remove("hidden");
+    e.target.classList.add("hidden");
+  })
+
+  const initBoard = () => {
     const board = Gameboard.getBoard();
+
+    while(boardDiv.hasChildNodes()) {
+      boardDiv.removeChild(boardDiv.firstChild);
+    }
 
     const createGameboardCell = (cell, index) => {
       const cellDiv = document.createElement("div");
@@ -123,11 +137,16 @@ const DisplayController = (() => {
       const cellDiv = createGameboardCell(cell, index);
       boardDiv.appendChild(cellDiv);
     });
-  });
+  }
 
   const updateMessage = (message) => {
     infoMessage.textContent = message;
   }
 
-  return { updateMessage };
+  const gameOver = () => {
+    boardDiv.classList.add("hidden");
+    restartButton.classList.remove("hidden");
+  }
+
+  return { updateMessage, gameOver };
 })();

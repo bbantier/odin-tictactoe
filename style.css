@@ -91,6 +91,10 @@ body * {
   cursor: pointer;
 }
 
+.restart-button {
+  margin-top: 25px;
+}
+
 .gameboard-container {
   margin-top: 50px;
   width: 400px;
@@ -109,6 +113,11 @@ body * {
   align-items: center;
   font-family: 'Courier New', Courier, monospace;
   font-size: 2rem;
+  cursor: pointer;
+}
+
+.gameboard-cell:hover {
+  background-color: #dfdfdf;
 }
 
 .info-message {
